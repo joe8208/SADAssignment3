@@ -161,6 +161,7 @@
       <DependentUpon>201704111934128_InitialCreate.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\DataInput.cs" />
     <Compile Include="Models\LineInput.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -207,6 +208,7 @@
     <Content Include="Views\LineInputs\Details.cshtml" />
     <Content Include="Views\LineInputs\Edit.cshtml" />
     <Content Include="Views\LineInputs\Index.cshtml" />
+    <Content Include="Views\LineInputs\TextInput.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

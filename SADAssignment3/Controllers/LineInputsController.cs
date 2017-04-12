@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using SADAssignment3.DAL;
 using SADAssignment3.Models;
+using System.IO;
 
 namespace SADAssignment3.Controllers
 {
@@ -123,6 +124,43 @@ namespace SADAssignment3.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        // GET: LineInputs/TextInput
+        public ActionResult TextInput()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult TextInput(DataInput model)
+        {
+            if (ModelState.IsValid)
+            {
+                // get data from modle
+                string dataInput = model.DataText;
+
+                // loop through string and break it apart based on line breaks
+                //var result = dataInput.Split()
+
+                using (StringReader sr = new StringReader(dataInput))
+                {
+                    string line;
+                    while((line = sr.ReadLine()) != null)
+                    {
+                        LineInput lineInput = new LineInput();
+
+                        var splitString = line.Split(new[] { "http" }, StringSplitOptions.None);
+                        lineInput.Descriptor = splitString[0].Trim();
+                        lineInput.Url = "http" + splitString[1].Trim();
+
+                        db.LineInputs.Add(lineInput);
+                        db.SaveChanges();
+                    }
+                }
+            }
+            return RedirectToAction("Index");
         }
     }
 }
