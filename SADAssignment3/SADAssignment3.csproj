@@ -148,7 +148,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\LineInputsController.cs" />
+    <Compile Include="Controllers\DataInputController.cs" />
     <Compile Include="DAL\GenericRepository.cs" />
     <Compile Include="DAL\SADAssignment3Context.cs" />
     <Compile Include="DAL\SADAssignment3Initializer.cs" />
@@ -163,6 +163,7 @@
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\DataInput.cs" />
     <Compile Include="Models\LineInput.cs" />
+    <Compile Include="Models\SearchViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -200,15 +201,14 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\Data_Entry.cshtml" />
-    <Content Include="Views\Home\SearchKeywords.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\LineInputs\Create.cshtml" />
-    <Content Include="Views\LineInputs\Delete.cshtml" />
-    <Content Include="Views\LineInputs\Details.cshtml" />
-    <Content Include="Views\LineInputs\Edit.cshtml" />
-    <Content Include="Views\LineInputs\Index.cshtml" />
-    <Content Include="Views\LineInputs\TextInput.cshtml" />
+    <Content Include="Views\DataInput\Create.cshtml" />
+    <Content Include="Views\DataInput\Delete.cshtml" />
+    <Content Include="Views\DataInput\Details.cshtml" />
+    <Content Include="Views\DataInput\Edit.cshtml" />
+    <Content Include="Views\DataInput\Index.cshtml" />
+    <Content Include="Views\DataInput\TextInput.cshtml" />
+    <Content Include="Views\Home\Search.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -12,7 +12,7 @@ using System.IO;
 
 namespace SADAssignment3.Controllers
 {
-    public class LineInputsController : Controller
+    public class DataInputController : Controller
     {
         private SADAssignment3Context db = new SADAssignment3Context();
 
