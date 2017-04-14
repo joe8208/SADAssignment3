@@ -31,8 +31,7 @@ namespace SADAssignment3.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Search(SearchViewModel model)
-        {
-            
+        {           
 
             // 1. read from db and input data into KWIC
 
@@ -68,7 +67,18 @@ namespace SADAssignment3.Controllers
             // loop through the list of lines with found keywords and construct list of decriptors
             // and urls to return to the view.
 
-            var x = linesWithKeywordsFound;
+            for(int i = 0; i < linesWithKeywordsFound.Length; i++)
+            {
+                // compare to see if the count # matches that of the number of keywords being searched.
+                if (linesWithKeywordsFound[i] == keywords.Length)
+                {
+                    // grab LineInput from db that matches the index of the found result
+
+                    model.SearchOutPut.Add(listOfLineInputs[i]);
+                }
+            }
+
+            var x = model.SearchOutPut;
 
             return View();
         }

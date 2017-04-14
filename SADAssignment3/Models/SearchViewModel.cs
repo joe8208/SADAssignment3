@@ -9,5 +9,9 @@ namespace SADAssignment3.Models
     {
         public string Keywords { get; set; }
         public List<LineInput> SearchOutPut { get; set; }
+        public SearchViewModel()
+        {
+            SearchOutPut = new List<LineInput>();
+        }
     }
 }
