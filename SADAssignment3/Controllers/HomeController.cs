@@ -18,9 +18,11 @@ namespace SADAssignment3.Controllers
             return View();
         }
 
+        
         public ActionResult Search()
         {
-            return View();
+            SearchViewModel model = new SearchViewModel();
+            return View(model);
         }
 
 
@@ -78,10 +80,10 @@ namespace SADAssignment3.Controllers
                 }
             }
 
-            var x = model.SearchOutPut;
+            //var x = model.SearchOutPut;
 
-            return View();
-        }
+            return View(model);
+        }        
 
         int[] binarySearch(string[] keywords, List<KwicOutputModel> shiftedOutput)
         {
