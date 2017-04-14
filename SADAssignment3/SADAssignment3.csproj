@@ -152,7 +152,6 @@
     <Compile Include="Controllers\NoiseWordsController.cs" />
     <Compile Include="DAL\GenericRepository.cs" />
     <Compile Include="DAL\SADAssignment3Context.cs" />
-    <Compile Include="DAL\SADAssignment3Initializer.cs" />
     <Compile Include="DAL\UnitOfWork.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>

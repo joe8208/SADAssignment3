@@ -13,12 +13,13 @@ namespace SADAssignment3.Controllers
 {
     public class NoiseWordsController : Controller
     {
-        private SADAssignment3Context db = new SADAssignment3Context();
+        //private SADAssignment3Context db = new SADAssignment3Context();
+        UnitOfWork unitOfWork = new UnitOfWork();
 
         // GET: NoiseWords
         public ActionResult Index()
         {
-            return View(db.NoiseWords.ToList());
+            return View(unitOfWork.NoiseWordRepository.Get().ToList());
         }
 
         // GET: NoiseWords/Details/5
@@ -28,7 +29,7 @@ namespace SADAssignment3.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            NoiseWord noiseWord = db.NoiseWords.Find(id);
+            NoiseWord noiseWord = unitOfWork.NoiseWordRepository.GetByID(id);
             if (noiseWord == null)
             {
                 return HttpNotFound();
@@ -51,8 +52,8 @@ namespace SADAssignment3.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.NoiseWords.Add(noiseWord);
-                db.SaveChanges();
+                unitOfWork.NoiseWordRepository.Insert(noiseWord);
+                unitOfWork.Save();
                 return RedirectToAction("Index");
             }
 
@@ -66,7 +67,7 @@ namespace SADAssignment3.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            NoiseWord noiseWord = db.NoiseWords.Find(id);
+            NoiseWord noiseWord = unitOfWork.NoiseWordRepository.GetByID(id);
             if (noiseWord == null)
             {
                 return HttpNotFound();
@@ -83,8 +84,8 @@ namespace SADAssignment3.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(noiseWord).State = EntityState.Modified;
-                db.SaveChanges();
+                unitOfWork.NoiseWordRepository.Update(noiseWord);
+                unitOfWork.Save();
                 return RedirectToAction("Index");
             }
             return View(noiseWord);
@@ -97,7 +98,7 @@ namespace SADAssignment3.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            NoiseWord noiseWord = db.NoiseWords.Find(id);
+            NoiseWord noiseWord = unitOfWork.NoiseWordRepository.GetByID(id);
             if (noiseWord == null)
             {
                 return HttpNotFound();
@@ -110,9 +111,9 @@ namespace SADAssignment3.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            NoiseWord noiseWord = db.NoiseWords.Find(id);
-            db.NoiseWords.Remove(noiseWord);
-            db.SaveChanges();
+            NoiseWord noiseWord = unitOfWork.NoiseWordRepository.GetByID(id);
+            unitOfWork.NoiseWordRepository.Delete(noiseWord);
+            unitOfWork.Save();
             return RedirectToAction("Index");
         }
 
@@ -120,7 +121,7 @@ namespace SADAssignment3.Controllers
         {
             if (disposing)
             {
-                db.Dispose();
+                unitOfWork.Dispose();
             }
             base.Dispose(disposing);
         }

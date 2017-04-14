@@ -14,12 +14,12 @@ namespace SADAssignment3.Controllers
 {
     public class DataInputController : Controller
     {
-        private SADAssignment3Context db = new SADAssignment3Context();
-
+        //private SADAssignment3Context db = new SADAssignment3Context();
+        UnitOfWork unitOfWork = new UnitOfWork();
         // GET: LineInputs
         public ActionResult Index()
         {
-            return View(db.LineInputs.ToList());
+            return View(unitOfWork.LineInputRepository.Get().ToList());
         }
 
         // GET: LineInputs/Details/5
@@ -29,7 +29,7 @@ namespace SADAssignment3.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            LineInput lineInput = db.LineInputs.Find(id);
+            LineInput lineInput = unitOfWork.LineInputRepository.GetByID(id);
             if (lineInput == null)
             {
                 return HttpNotFound();
@@ -52,8 +52,8 @@ namespace SADAssignment3.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.LineInputs.Add(lineInput);
-                db.SaveChanges();
+                unitOfWork.LineInputRepository.Insert(lineInput);
+                unitOfWork.Save();
                 return RedirectToAction("Index");
             }
 
@@ -67,7 +67,7 @@ namespace SADAssignment3.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            LineInput lineInput = db.LineInputs.Find(id);
+            LineInput lineInput = unitOfWork.LineInputRepository.GetByID(id);
             if (lineInput == null)
             {
                 return HttpNotFound();
@@ -84,8 +84,8 @@ namespace SADAssignment3.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(lineInput).State = EntityState.Modified;
-                db.SaveChanges();
+                unitOfWork.LineInputRepository.Update(lineInput);
+                unitOfWork.Save();
                 return RedirectToAction("Index");
             }
             return View(lineInput);
@@ -98,7 +98,7 @@ namespace SADAssignment3.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            LineInput lineInput = db.LineInputs.Find(id);
+            LineInput lineInput = unitOfWork.LineInputRepository.GetByID(id);
             if (lineInput == null)
             {
                 return HttpNotFound();
@@ -111,9 +111,9 @@ namespace SADAssignment3.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            LineInput lineInput = db.LineInputs.Find(id);
-            db.LineInputs.Remove(lineInput);
-            db.SaveChanges();
+            LineInput lineInput = unitOfWork.LineInputRepository.GetByID(id);
+            unitOfWork.LineInputRepository.Delete(lineInput);
+            unitOfWork.Save();
             return RedirectToAction("Index");
         }
 
@@ -121,7 +121,7 @@ namespace SADAssignment3.Controllers
         {
             if (disposing)
             {
-                db.Dispose();
+                unitOfWork.Dispose();
             }
             base.Dispose(disposing);
         }
@@ -161,8 +161,8 @@ namespace SADAssignment3.Controllers
                         lineInput.Descriptor = splitString[0].Trim();
                         lineInput.Url = "http" + splitString[1].Trim();
 
-                        db.LineInputs.Add(lineInput);
-                        db.SaveChanges();
+                        unitOfWork.LineInputRepository.Insert(lineInput);
+                        unitOfWork.Save();
                     }
                 }
             }

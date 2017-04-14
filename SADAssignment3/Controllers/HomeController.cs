@@ -11,8 +11,8 @@ namespace SADAssignment3.Controllers
 {
     public class HomeController : Controller
     {
-        private SADAssignment3Context db = new SADAssignment3Context();
-
+        //private SADAssignment3Context db = new SADAssignment3Context();
+        private UnitOfWork unitOfWork = new UnitOfWork();
         public ActionResult Index()
         {
             return View();
@@ -33,14 +33,14 @@ namespace SADAssignment3.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Search(SearchViewModel model)
-        {           
+        {
 
             // 1. read from db and input data into KWIC
 
-            List<LineInput> listOfLineInputs = db.LineInputs.ToList();
+            List<LineInput> listOfLineInputs = unitOfWork.LineInputRepository.Get().ToList();
             List<string> input = listOfLineInputs.Select(s => s.Descriptor).ToList();
 
-            List<string> noiseWords = db.NoiseWords.Select(s => s.Word).ToList();
+            List<string> noiseWords = unitOfWork.NoiseWordRepository.Get().Select(s => s.Word).ToList();
 
             KWICMasterController mc = new KWICMasterController();
             mc.Execute(input, noiseWords);
@@ -49,7 +49,7 @@ namespace SADAssignment3.Controllers
 
 
             // read input and parse into individual words to search by.
-            string[] keywords = model.Keywords.Split(new char[] { ' ' });
+            string[] keywords = model.Keywords.Trim().Split(new char[] { ' ' });
 
             // search through the shifted lines and find the ones with the keywords
 
