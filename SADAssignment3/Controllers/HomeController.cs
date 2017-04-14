@@ -47,6 +47,18 @@ namespace SADAssignment3.Controllers
             var shiftedOutput = mc.KWICOutPut;
             int[] linesWithKeywordsFound = new int[mc.LineIndexLength];
 
+            // if keywords are empty then print out all data
+            if (model.Keywords == null)
+            {
+                model.SearchOutPut = listOfLineInputs;
+                return View(model);
+            }
+
+            if(model.Keywords != null && model.Keywords.Trim() == "")
+            {
+                model.SearchOutPut = listOfLineInputs;
+                return View(model);
+            }
 
             // read input and parse into individual words to search by.
             string[] keywords = model.Keywords.Trim().Split(new char[] { ' ' });
