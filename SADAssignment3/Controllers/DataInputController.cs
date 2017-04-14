@@ -12,10 +12,8 @@ using System.IO;
 
 namespace SADAssignment3.Controllers
 {
-    public class DataInputController : Controller
-    {
-        //private SADAssignment3Context db = new SADAssignment3Context();
-        UnitOfWork unitOfWork = new UnitOfWork();
+    public class DataInputController : ApplicationController
+    {        
         // GET: LineInputs
         public ActionResult Index()
         {

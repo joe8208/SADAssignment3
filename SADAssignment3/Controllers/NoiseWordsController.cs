@@ -11,10 +11,8 @@ using SADAssignment3.Models;
 
 namespace SADAssignment3.Controllers
 {
-    public class NoiseWordsController : Controller
-    {
-        //private SADAssignment3Context db = new SADAssignment3Context();
-        UnitOfWork unitOfWork = new UnitOfWork();
+    public class NoiseWordsController : ApplicationController
+    {        
 
         // GET: NoiseWords
         public ActionResult Index()

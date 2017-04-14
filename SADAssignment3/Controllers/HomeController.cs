@@ -9,10 +9,8 @@ using SADAssignment3.DAL;
 
 namespace SADAssignment3.Controllers
 {
-    public class HomeController : Controller
-    {
-        //private SADAssignment3Context db = new SADAssignment3Context();
-        private UnitOfWork unitOfWork = new UnitOfWork();
+    public class HomeController : ApplicationController
+    {        
         public ActionResult Index()
         {
             return View();
