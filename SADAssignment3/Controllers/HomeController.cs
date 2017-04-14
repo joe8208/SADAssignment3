@@ -6,6 +6,7 @@ using System.Web;
 using System.Web.Mvc;
 using SADAssignment3.KWIC;
 using SADAssignment3.DAL;
+using SADAssignment3.Helper;
 
 namespace SADAssignment3.Controllers
 {
@@ -32,8 +33,9 @@ namespace SADAssignment3.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Search(SearchViewModel model)
         {
-            // 1. read from db and input data into KWIC
             
+
+            // 1. read from db and input data into KWIC
 
             List<LineInput> listOfLineInputs = db.LineInputs.ToList();
             List<string> input = listOfLineInputs.Select(s => s.Descriptor).ToList();
@@ -42,10 +44,105 @@ namespace SADAssignment3.Controllers
 
             KWICMasterController mc = new KWICMasterController();
             mc.Execute(input, noiseWords);
-            var shiftedOutPut = mc.KWICOutPut;
+            var shiftedOutput = mc.KWICOutPut;
+
+            // create an int array to store the found keyword line indexs.
+            int[] linesWithKeywordsFound = new int[shiftedOutput.Count];
+
+            // read input and parse into individual words to search by.
+            string[] keywords = model.Keywords.Split(new char[] { ' ' });
 
             // search through the shifted lines and find the ones with the keywords
+
+            for (int i = 0; i < keywords.Length; i++)
+            {
+                // binary search 
+                int low = 0;
+                int mid = 0;
+                int high = shiftedOutput.Count - 1;
+
+                while(low <= high)
+                {
+                    mid = (low + high) / 2;
+                    // get first word in line from the middle of the arraylist
+                    string midWord = shiftedOutput[mid].ShiftedLine.Split(new char[] { ' ' })[0];
+
+                    //int compared = CustomComparer.StringComparer(keywords[i], midWord);
+                    int compared = CustomComparable(keywords[i], midWord);
+
+                    if (compared > 0)
+                        low = mid + 1;
+                    else if (compared < 0)
+                        high = mid - 1;
+                    else
+                    {
+                        // they are the same, keyword found
+
+                        linesWithKeywordsFound[mid] += 1;
+
+                        low = mid;
+                        high = mid - 1;
+                    }
+                }
+            }
+
+            var x = linesWithKeywordsFound;
+
             return View();
+        }
+
+        int CustomComparable(string x, string y)
+        {
+            // make sorter sort lower case characters first then uppercase characters
+            // take line conver it into a array of charaters and compare to the second string if it is less or greater on the sort order.
+            int maxStringLength = 0;
+
+            if (x.Length <= y.Length)
+                maxStringLength = x.Length;
+            else
+            {
+                maxStringLength = y.Length;
+            }
+
+            for (int i = 0; i < maxStringLength; i++)
+            {
+                char a = x[i];
+                char b = y[i];
+
+                if (a.ToString().ToLower() == b.ToString().ToLower())
+                {
+                    if (a == b)
+                    {
+                        if (i + 1 == maxStringLength)
+                        {
+                            if (x.Length < y.Length)
+                                return -1;
+                            else if (x.Length > y.Length)
+                                return 1;
+                            else
+                                return 0;
+                        }
+                    }
+                    else
+                    {
+
+                        if (a.ToString().ToLower() == b.ToString())
+                        {
+                            return 1;
+                        }
+                        else if (a.ToString().ToLower() != b.ToString())
+                        {
+                            return -1;
+                        }
+                    }
+
+                }
+                else
+                {
+                    return string.Compare(a.ToString(), b.ToString());
+                }
+            }
+            return 0;
         }
     }
 }
