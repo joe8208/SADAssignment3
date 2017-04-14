@@ -15,6 +15,8 @@ namespace SADAssignment3.KWIC
         CircularShifter circularShifter;
         Alphabetizer alphabetizer;
 
+        public int LineIndexLength { get; set; }
+
         public List<KwicOutputModel> KWICOutPut { get; set; }
 
         public void Execute(List<string> inputList, List<string> noiseWords)
@@ -28,6 +30,7 @@ namespace SADAssignment3.KWIC
 
             alphabetizer = new Alphabetizer(circularShifter);
             alphabetizer.Alphabetize();
+            LineIndexLength = alphabetizer.LineIndexLength;
 
             Output output = new Output(alphabetizer, noiseWords);
             

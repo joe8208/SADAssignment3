@@ -9,6 +9,6 @@ namespace SADAssignment3.Models
     {
         public string ShiftedLine { get; set; }
 
-        public int LineIndex { get; set; }
+        public int LineIndex { get; set; }        
     }
 }

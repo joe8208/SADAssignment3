@@ -44,8 +44,8 @@ namespace SADAssignment3.Controllers
             KWICMasterController mc = new KWICMasterController();
             mc.Execute(input, noiseWords);
             var shiftedOutput = mc.KWICOutPut;
+            int[] linesWithKeywordsFound = new int[mc.LineIndexLength];
 
-            
 
             // read input and parse into individual words to search by.
             string[] keywords = model.Keywords.Split(new char[] { ' ' });
@@ -54,11 +54,21 @@ namespace SADAssignment3.Controllers
 
             for (int i = 0; i < keywords.Length; i++)
             {
-                // binary search 
-                
+                // linear search through array to find matches
+                for (int j = 0; j < shiftedOutput.Count; j++)
+                {
+                    if (CustomComparable(keywords[i], shiftedOutput[j].ShiftedLine.Split(new char[] { ' ' })[0]) == 0)
+                    {
+                        linesWithKeywordsFound[shiftedOutput[j].LineIndex] += 1;
+                    }
+                }
+
             }
 
-            //var x = linesWithKeywordsFound;
+            // loop through the list of lines with found keywords and construct list of decriptors
+            // and urls to return to the view.
+
+            var x = linesWithKeywordsFound;
 
             return View();
         }
@@ -66,45 +76,51 @@ namespace SADAssignment3.Controllers
         int[] binarySearch(string[] keywords, List<KwicOutputModel> shiftedOutput)
         {
             // create an int array to store the found keyword line indexs.
+            // needs to be changed to create the array based on the lineindex length
             int[] linesWithKeywordsFound = new int[shiftedOutput.Count];
 
-            int low = 0;
-            int mid = 0;
-            int high = shiftedOutput.Count - 1;
-
-            while (low <= high)
+            for(int i = 0; i < keywords.Length; i++)
             {
-                mid = (low + high) / 2;
-                // get first word in line from the middle of the arraylist
-                string midWord = shiftedOutput[mid].ShiftedLine.Split(new char[] { ' ' })[0];
+                int low = 0;
+                int mid = 0;
+                int high = shiftedOutput.Count - 1;
 
-                int compared = CustomComparable(keywords[i], midWord);
-
-                if (compared > 0)
-                    low = mid + 1;
-                else if (compared < 0)
-                    high = mid - 1;
-                else
+                while (low <= high)
                 {
-                    // they are the same, keyword found
-                    // do a linear search from low to high to 
-                    // find ALL instances of the search word
-                    // because binary seach only returns one.
+                    mid = (low + high) / 2;
+                    // get first word in line from the middle of the arraylist
+                    string midWord = shiftedOutput[mid].ShiftedLine.Split(new char[] { ' ' })[0];
 
+                    int compared = CustomComparable(keywords[i], midWord);
 
-
-                    for (int j = low; j <= high; j++)
+                    if (compared > 0)
+                        low = mid + 1;
+                    else if (compared < 0)
+                        high = mid - 1;
+                    else
                     {
-                        if (CustomComparable(keywords[i], shiftedOutput[j].ShiftedLine.Split(new char[] { ' ' })[0]) == 0)
-                        {
-                            linesWithKeywordsFound[mid] += 1;
-                        }
-                    }
+                        // they are the same, keyword found
+                        // do a linear search from low to high to 
+                        // find ALL instances of the search word
+                        // because binary seach only returns one.
 
-                    low = mid;
-                    high = mid - 1;
+
+
+                        for (int j = low; j <= high; j++)
+                        {
+                            if (CustomComparable(keywords[i], shiftedOutput[j].ShiftedLine.Split(new char[] { ' ' })[0]) == 0)
+                            {
+                                // needs line index not mid for logging 
+                                linesWithKeywordsFound[mid] += 1;
+                            }
+                        }
+
+                        low = mid;
+                        high = mid - 1;
+                    }
                 }
             }
+            
             return linesWithKeywordsFound;
         }
 
