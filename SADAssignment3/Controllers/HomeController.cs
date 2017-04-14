@@ -6,7 +6,6 @@ using System.Web;
 using System.Web.Mvc;
 using SADAssignment3.KWIC;
 using SADAssignment3.DAL;
-using SADAssignment3.Helper;
 
 namespace SADAssignment3.Controllers
 {
@@ -46,8 +45,7 @@ namespace SADAssignment3.Controllers
             mc.Execute(input, noiseWords);
             var shiftedOutput = mc.KWICOutPut;
 
-            // create an int array to store the found keyword line indexs.
-            int[] linesWithKeywordsFound = new int[shiftedOutput.Count];
+            
 
             // read input and parse into individual words to search by.
             string[] keywords = model.Keywords.Split(new char[] { ' ' });
@@ -57,38 +55,57 @@ namespace SADAssignment3.Controllers
             for (int i = 0; i < keywords.Length; i++)
             {
                 // binary search 
-                int low = 0;
-                int mid = 0;
-                int high = shiftedOutput.Count - 1;
-
-                while(low <= high)
-                {
-                    mid = (low + high) / 2;
-                    // get first word in line from the middle of the arraylist
-                    string midWord = shiftedOutput[mid].ShiftedLine.Split(new char[] { ' ' })[0];
-
-                    //int compared = CustomComparer.StringComparer(keywords[i], midWord);
-                    int compared = CustomComparable(keywords[i], midWord);
-
-                    if (compared > 0)
-                        low = mid + 1;
-                    else if (compared < 0)
-                        high = mid - 1;
-                    else
-                    {
-                        // they are the same, keyword found
-
-                        linesWithKeywordsFound[mid] += 1;
-
-                        low = mid;
-                        high = mid - 1;
-                    }
-                }
+                
             }
 
-            var x = linesWithKeywordsFound;
+            //var x = linesWithKeywordsFound;
 
             return View();
+        }
+
+        int[] binarySearch(string[] keywords, List<KwicOutputModel> shiftedOutput)
+        {
+            // create an int array to store the found keyword line indexs.
+            int[] linesWithKeywordsFound = new int[shiftedOutput.Count];
+
+            int low = 0;
+            int mid = 0;
+            int high = shiftedOutput.Count - 1;
+
+            while (low <= high)
+            {
+                mid = (low + high) / 2;
+                // get first word in line from the middle of the arraylist
+                string midWord = shiftedOutput[mid].ShiftedLine.Split(new char[] { ' ' })[0];
+
+                int compared = CustomComparable(keywords[i], midWord);
+
+                if (compared > 0)
+                    low = mid + 1;
+                else if (compared < 0)
+                    high = mid - 1;
+                else
+                {
+                    // they are the same, keyword found
+                    // do a linear search from low to high to 
+                    // find ALL instances of the search word
+                    // because binary seach only returns one.
+
+
+
+                    for (int j = low; j <= high; j++)
+                    {
+                        if (CustomComparable(keywords[i], shiftedOutput[j].ShiftedLine.Split(new char[] { ' ' })[0]) == 0)
+                        {
+                            linesWithKeywordsFound[mid] += 1;
+                        }
+                    }
+
+                    low = mid;
+                    high = mid - 1;
+                }
+            }
+            return linesWithKeywordsFound;
         }
 
         int CustomComparable(string x, string y)

@@ -157,7 +157,6 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Helper\CustomComparer.cs" />
     <Compile Include="KWIC\Alphabetizer.cs" />
     <Compile Include="KWIC\CircularShifter.cs" />
     <Compile Include="KWIC\Input.cs" />
