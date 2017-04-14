@@ -156,6 +156,13 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="KWIC\Alphabetizer.cs" />
+    <Compile Include="KWIC\CircularShifter.cs" />
+    <Compile Include="KWIC\Input.cs" />
+    <Compile Include="KWIC\LineStorage.cs" />
+    <Compile Include="KWIC\MasterController.cs" />
+    <Compile Include="KWIC\NoiseRemover.cs" />
+    <Compile Include="KWIC\Output.cs" />
     <Compile Include="Migrations\201704111934128_InitialCreate.cs" />
     <Compile Include="Migrations\201704111934128_InitialCreate.Designer.cs">
       <DependentUpon>201704111934128_InitialCreate.cs</DependentUpon>
