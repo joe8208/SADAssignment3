@@ -152,6 +152,12 @@ namespace SADAssignment3.Controllers
                         LineInput lineInput = new LineInput();
 
                         var splitString = line.Split(new[] { "http" }, StringSplitOptions.None);
+
+                        if (splitString.Length != 2)
+                        {
+                            ModelState.AddModelError("DataText", "Error, you must have data input in the form xxxxxxx http://xxxxxxx");
+                            return View(model);
+                        }
                         lineInput.Descriptor = splitString[0].Trim();
                         lineInput.Url = "http" + splitString[1].Trim();
 
