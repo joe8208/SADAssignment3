@@ -10,7 +10,8 @@ namespace SADAssignment3.DAL
     public class UnitOfWork : IDisposable
     {
         private SADAssignment3Context context = new SADAssignment3Context();
-        private GenericRepository<LineInput> lineInputRepository;        
+        private GenericRepository<LineInput> lineInputRepository;
+        private GenericRepository<NoiseWord> noiseWordRepository;
 
         public GenericRepository<LineInput> LineInputRepository
         {
@@ -22,6 +23,18 @@ namespace SADAssignment3.DAL
                     this.lineInputRepository = new GenericRepository<LineInput>(context);
                 }
                 return lineInputRepository;
+            }
+        }
+
+        public GenericRepository<NoiseWord> NoiseWordRepository
+        {
+            get
+            {
+                if (this.noiseWordRepository == null)
+                {
+                    this.noiseWordRepository = new GenericRepository<NoiseWord>(context);
+                }
+                return noiseWordRepository;
             }
         }
 

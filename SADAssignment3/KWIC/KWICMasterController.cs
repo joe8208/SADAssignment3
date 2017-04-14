@@ -7,7 +7,7 @@ using System.Diagnostics;
 
 namespace SADAssignment3.KWIC
 {
-    public class MasterController
+    public class KWICMasterController
     {
         Input input;
         LineStorage lineStorage;

@@ -25,6 +25,27 @@ namespace SADAssignment3.Migrations
             };
             lineInputs.ForEach(s => context.LineInputs.AddOrUpdate(s));
             context.SaveChanges();
+
+            var noiseWords = new List<NoiseWord>
+            {
+                new NoiseWord {Id = 1, Word = "a"},
+                new NoiseWord {Id = 1, Word = "an"},
+                new NoiseWord {Id = 1, Word = "the"},
+                new NoiseWord {Id = 1, Word = "and"},
+                new NoiseWord {Id = 1, Word = "or"},
+                new NoiseWord {Id = 1, Word = "of"},
+                new NoiseWord {Id = 1, Word = "to"},
+                new NoiseWord {Id = 1, Word = "be"},
+                new NoiseWord {Id = 1, Word = "is"},
+                new NoiseWord {Id = 1, Word = "in"},
+                new NoiseWord {Id = 1, Word = "out"},
+                new NoiseWord {Id = 1, Word = "by"},
+                new NoiseWord {Id = 1, Word = "as"},
+                new NoiseWord {Id = 1, Word = "at"},
+                new NoiseWord {Id = 1, Word = "off"}
+            };
+            noiseWords.ForEach(s => context.NoiseWords.AddOrUpdate(s));
+            context.SaveChanges();
         }
     }
 }

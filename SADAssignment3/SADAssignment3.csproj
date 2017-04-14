@@ -149,6 +149,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\DataInputController.cs" />
+    <Compile Include="Controllers\NoiseWordsController.cs" />
     <Compile Include="DAL\GenericRepository.cs" />
     <Compile Include="DAL\SADAssignment3Context.cs" />
     <Compile Include="DAL\SADAssignment3Initializer.cs" />
@@ -160,16 +161,21 @@
     <Compile Include="KWIC\CircularShifter.cs" />
     <Compile Include="KWIC\Input.cs" />
     <Compile Include="KWIC\LineStorage.cs" />
-    <Compile Include="KWIC\MasterController.cs" />
+    <Compile Include="KWIC\KWICMasterController.cs" />
     <Compile Include="KWIC\NoiseRemover.cs" />
     <Compile Include="KWIC\Output.cs" />
     <Compile Include="Migrations\201704111934128_InitialCreate.cs" />
     <Compile Include="Migrations\201704111934128_InitialCreate.Designer.cs">
       <DependentUpon>201704111934128_InitialCreate.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201704140118040_AddingNoiseWords.cs" />
+    <Compile Include="Migrations\201704140118040_AddingNoiseWords.Designer.cs">
+      <DependentUpon>201704140118040_AddingNoiseWords.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\DataInput.cs" />
     <Compile Include="Models\LineInput.cs" />
+    <Compile Include="Models\NoiseWord.cs" />
     <Compile Include="Models\SearchViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -216,6 +222,11 @@
     <Content Include="Views\DataInput\Index.cshtml" />
     <Content Include="Views\DataInput\TextInput.cshtml" />
     <Content Include="Views\Home\Search.cshtml" />
+    <Content Include="Views\NoiseWords\Create.cshtml" />
+    <Content Include="Views\NoiseWords\Delete.cshtml" />
+    <Content Include="Views\NoiseWords\Details.cshtml" />
+    <Content Include="Views\NoiseWords\Edit.cshtml" />
+    <Content Include="Views\NoiseWords\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -238,6 +249,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201704111934128_InitialCreate.resx">
       <DependentUpon>201704111934128_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201704140118040_AddingNoiseWords.resx">
+      <DependentUpon>201704140118040_AddingNoiseWords.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

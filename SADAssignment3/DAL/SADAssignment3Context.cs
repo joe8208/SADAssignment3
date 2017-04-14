@@ -14,6 +14,8 @@ namespace SADAssignment3.DAL
 
         public DbSet<LineInput> LineInputs { get; set; }
 
+        public DbSet<NoiseWord> NoiseWords { get; set; }
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
