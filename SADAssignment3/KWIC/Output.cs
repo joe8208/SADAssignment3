@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using SADAssignment3.Models;
 
 namespace SADAssignment3.KWIC
 {
@@ -10,15 +11,15 @@ namespace SADAssignment3.KWIC
     {
         List<string> noiseWords;
         Alphabetizer alpha;
-        NoiseRemover noiseWordChecker;
-        List<string> output = new List<string>();
+        NoiseRemover noiseWordChecker;        
+        List<KwicOutputModel> output = new List<KwicOutputModel>();
 
         public Output(Alphabetizer alpha, List<string> noiseWords)
         {
             this.alpha = alpha;
             this.noiseWords = noiseWords;
         }
-        public List<string> Write()
+        public List<KwicOutputModel> Write()
         {
             noiseWordChecker = new NoiseRemover(noiseWords);
 
@@ -56,7 +57,10 @@ namespace SADAssignment3.KWIC
                 
                 if (!noiseWordChecker.HasNoiseWords(shift))
                 {
-                    output.Add(shift);
+                    KwicOutputModel kwicOutput = new KwicOutputModel();
+                    kwicOutput.ShiftedLine = shift;
+                    kwicOutput.LineIndex = lineCount;
+                    output.Add(kwicOutput);
                 }                                
             }
             return output;            

@@ -33,10 +33,18 @@ namespace SADAssignment3.Controllers
         public ActionResult Search(SearchViewModel model)
         {
             // 1. read from db and input data into KWIC
-            //MasterController mc = new MasterController();
+            
 
-            //List<LineInput> listOfLineInputs = db.LineInputs.ToList();
-            //List<string> input = listOfLineInputs.Select()
+            List<LineInput> listOfLineInputs = db.LineInputs.ToList();
+            List<string> input = listOfLineInputs.Select(s => s.Descriptor).ToList();
+
+            List<string> noiseWords = db.NoiseWords.Select(s => s.Word).ToList();
+
+            KWICMasterController mc = new KWICMasterController();
+            mc.Execute(input, noiseWords);
+            var shiftedOutPut = mc.KWICOutPut;
+
+            // search through the shifted lines and find the ones with the keywords
             return View();
         }
     }
