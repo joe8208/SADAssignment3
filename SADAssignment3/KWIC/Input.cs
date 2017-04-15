@@ -9,7 +9,7 @@ namespace SADAssignment3.KWIC
 {
     public class Input
     {
-        public void Read(List<String> inputList, LineStorage lineStorage)
+        public void Read(List<string> inputList, LineStorage lineStorage)
         {    
                                                    
             for (int i = 0; i < inputList.Count; i++)
