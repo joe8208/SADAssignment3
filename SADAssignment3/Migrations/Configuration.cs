@@ -29,20 +29,20 @@ namespace SADAssignment3.Migrations
             var noiseWords = new List<NoiseWord>
             {
                 new NoiseWord {Id = 1, Word = "a"},
-                new NoiseWord {Id = 1, Word = "an"},
-                new NoiseWord {Id = 1, Word = "the"},
-                new NoiseWord {Id = 1, Word = "and"},
-                new NoiseWord {Id = 1, Word = "or"},
-                new NoiseWord {Id = 1, Word = "of"},
-                new NoiseWord {Id = 1, Word = "to"},
-                new NoiseWord {Id = 1, Word = "be"},
-                new NoiseWord {Id = 1, Word = "is"},
-                new NoiseWord {Id = 1, Word = "in"},
-                new NoiseWord {Id = 1, Word = "out"},
-                new NoiseWord {Id = 1, Word = "by"},
-                new NoiseWord {Id = 1, Word = "as"},
-                new NoiseWord {Id = 1, Word = "at"},
-                new NoiseWord {Id = 1, Word = "off"}
+                new NoiseWord {Id = 2, Word = "an"},
+                new NoiseWord {Id = 3, Word = "the"},
+                new NoiseWord {Id = 4, Word = "and"},
+                new NoiseWord {Id = 5, Word = "or"},
+                new NoiseWord {Id = 6, Word = "of"},
+                new NoiseWord {Id = 7, Word = "to"},
+                new NoiseWord {Id = 8, Word = "be"},
+                new NoiseWord {Id = 9, Word = "is"},
+                new NoiseWord {Id = 10, Word = "in"},
+                new NoiseWord {Id = 11, Word = "out"},
+                new NoiseWord {Id = 12, Word = "by"},
+                new NoiseWord {Id = 13, Word = "as"},
+                new NoiseWord {Id = 14, Word = "at"},
+                new NoiseWord {Id = 15, Word = "off"}
             };
             noiseWords.ForEach(s => context.NoiseWords.AddOrUpdate(s));
             context.SaveChanges();
