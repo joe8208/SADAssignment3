@@ -68,7 +68,7 @@ namespace SADAssignment3.Controllers
                 // linear search through array to find matches
                 for (int j = 0; j < shiftedOutput.Count; j++)
                 {
-                    if (CustomComparable(keywords[i], shiftedOutput[j].ShiftedLine.Split(new char[] { ' ' })[0]) == 0)
+                    if (CustomComparable(keywords[i].ToLower(), shiftedOutput[j].ShiftedLine.Split(new char[] { ' ' })[0].ToLower()) == 0)
                     {
                         linesWithKeywordsFound[shiftedOutput[j].LineIndex] += 1;
                     }
